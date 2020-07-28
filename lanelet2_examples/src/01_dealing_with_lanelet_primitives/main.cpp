@@ -18,6 +18,8 @@
 // we compare floats a couple of times and know this is save in this context
 #pragma GCC diagnostic ignored "-Wfloat-equal"
 
+using namespace std;
+
 void part0Primitives();
 void part1Points();
 void part2LineStrings();
@@ -53,10 +55,13 @@ void part0Primitives() {
   // all primitives can easily be copied. Since Lanelet2 data is unique, these copies simply share the same data.
   Point3d pCopy = p;
   assert(p == pCopy);
+  cout<< "p id: "<<p.id()<<endl;
+  std::cout<<"pCopy id "<<pCopy.id()<<endl;;
 
   // p is mutable, meaning we can change everything we passed at construction time.
   p.z() = 2;
   p.setId(utils::getId());
+  cout<< "p id: "<<p.id()<<endl;
 
   // since pCopy shares the data, we modified it as well. This is one of Lanelet2s basic principles to keep data
   // consistent across the map.
@@ -254,11 +259,24 @@ void part4Lanelets() {
   assert(lanelet.leftBound() == left);
   assert(lanelet.rightBound() == right);
   lanelet.setLeftBound(left);  // we can also change that linestring
+  cout<<"left bound"<<endl;
+  for (auto pp : lanelet.leftBound()) {
+    cout<< pp.x()<<" "<<pp.y() <<" "<<pp.z() <<endl;
+  }
+  cout<<"right bound"<<endl;
+  for (auto pp : lanelet.rightBound()) {
+    cout<< pp.x()<<" "<<pp.y() <<" "<<pp.z() <<endl;
+  }
 
   // lanelets also have a centerline. By default, the lanelet computes it for you. It is const because it should not
   // be modified.
   ConstLineString3d centerline = lanelet.centerline();
 
+  cout<<"center line"<<endl;
+  for (auto pp : centerline){
+    // it seems that the interval of  lanelet2 centerline is 0.5m
+    cout<< pp.x()<<" "<<pp.y() <<" "<<pp.z() <<endl;
+  }
   // the centerline is cached, because computation is not so cheap. When we set a new boundary, the cache is cleared
   ConstLineString3d centerline2 = lanelet.centerline();  // from the cache
   assert(centerline2 == centerline);
