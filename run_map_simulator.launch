@@ -6,4 +6,7 @@
 
 <include file="$(find mission_planner)/launch/mission_planning.launch" />
 
+<!--- Run Rviz-->
+<node pkg="rviz" type="rviz" name="rviz" args="-d $(find map_loader)/loader.rviz" />
+
 </launch>
