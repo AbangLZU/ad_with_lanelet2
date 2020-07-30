@@ -1,0 +1,9 @@
+<launch>
+
+<include file="$(find simple_planning_simulator)/launch/simple_planning_simulator.launch"/>
+
+<include file="$(find map_loader)/launch/lanelet2_map_loader.launch"/>
+
+<include file="$(find mission_planner)/launch/mission_planning.launch" />
+
+</launch>
